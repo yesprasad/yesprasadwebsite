@@ -52,6 +52,35 @@ const platforms = defineCollection({
   }),
 });
 
+// Paper notes: papers by other people that I've read, with my take.
+// One file per paper in src/content/paper-notes/, e.g. meta-harness.md:
+//   ---
+//   title: "Meta-Harness: End-to-End Optimization of Model Harnesses"
+//   authors: "Yoonho Lee et al."
+//   venue: arXiv            # or a conference/journal name
+//   year: 2026
+//   url: https://arxiv.org/abs/2603.28052
+//   topics: [Agents, Evaluation]
+//   read: 2026-09-15        # when I read it
+//   keyIdea: "One or two sentences on the paper's main idea."
+//   related: { label: "Fluent-Graph", url: "/platforms/" }   # optional
+//   ---
+//   My take: why it matters and how it connects to my work (the body).
+const paperNotes = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/paper-notes' }),
+  schema: z.object({
+    title: z.string(),
+    authors: z.string(),
+    venue: z.string(),
+    year: z.number().int(),
+    url: z.string(),
+    topics: z.array(z.string()).default([]),
+    read: z.coerce.date(),
+    keyIdea: z.string(),
+    related: z.object({ label: z.string(), url: z.string() }).optional(),
+  }),
+});
+
 // Papers, whitepapers, technical reports.
 const research = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/research' }),
@@ -104,4 +133,4 @@ const leadership = defineCollection({
     }),
 });
 
-export const collections = { writing, series, platforms, research, talks, leadership };
+export const collections = { writing, series, platforms, research, paperNotes, talks, leadership };

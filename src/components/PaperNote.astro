@@ -1,0 +1,20 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import { monthYear } from '../lib/content';
+
+interface Props { note: CollectionEntry<'paperNotes'> }
+const { note } = Astro.props;
+const d = note.data;
+const { Content } = await render(note);
+---
+
+<article class="note-card" id={note.id} data-topic={d.topics[0] ?? 'other'}>
+  <div class="note-meta"><span>Read {monthYear(d.read)}</span>{d.topics.length > 0 && <span>{d.topics.join(' · ')}</span>}</div>
+  <h3><a href={d.url}>{d.title} <span class="ext" aria-hidden="true">↗</span></a></h3>
+  <div class="note-by">{d.authors} · {d.venue} · {d.year}</div>
+  <p class="note-idea"><span class="note-label">Key idea</span>{d.keyIdea}</p>
+  {note.body?.trim() && (
+    <div class="note-take"><span class="note-label">My take</span><div class="prose"><Content /></div></div>
+  )}
+  {d.related && <a class="more" href={d.related.url}>Related: {d.related.label} →</a>}
+</article>

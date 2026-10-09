@@ -15,25 +15,22 @@ for (const p of posts) {
 }
 ---
 
-<Base title="Writing" description={`Articles since ${site.writingSince}, from Node.js fundamentals to RAG systems and AI agents.`}>
+<Base title="Writing" description={`Articles since ${site.writingSince}, from the smallest unit of memory in digital electronics, to building systems that run the world, to discovering ways to make AI agents work with their consequences in view.`}>
   <div class="wrap">
     <div class="page-head">
       <div class="kicker">Writing</div>
       <h1>Writing</h1>
-      <p>{posts.length} {posts.length === 1 ? 'article' : 'articles'} since {site.writingSince}, from Node.js fundamentals to RAG systems and AI agents.</p>
+      <p>{posts.length} {posts.length === 1 ? 'article' : 'articles'} since {site.writingSince}, from the smallest unit of memory in digital electronics, to building systems that run the world, to discovering ways to make AI agents work with their consequences in view.</p>
     </div>
-    {allSeries.length > 0 && (
-      <div class="series-strip">
-        <span class="kicker">Series</span>
-        {allSeries.map((s) => <a class="chip" href={`/series/${s.entry.id}/`}>{s.entry.data.title} · {s.parts.length}</a>)}
-      </div>
-    )}
+    <div class="tabs-row">
     <Tabs target="#posts" attr="section" options={[
       { value: 'all', label: 'All', count: posts.length },
       { value: 'essay', label: 'Essays', count: count('essay') },
       { value: 'lab', label: 'Engineering Lab', count: count('lab') },
       { value: 'notes', label: 'Field Notes', count: count('notes') },
     ]} />
+    {allSeries.length > 0 && <a class="tab tab-link" href="/series/">Explore series <span class="arrow" aria-hidden="true">→</span></a>}
+    </div>
     <div id="posts" style="padding-bottom:64px">
       {[...byYear].map(([y, list]) => (
         <div data-group>

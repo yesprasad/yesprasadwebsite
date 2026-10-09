@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import Tabs from '../../components/Tabs.astro';
+import PaperNote from '../../components/PaperNote.astro';
+import { getPaperNotes } from '../../lib/content';
+
+const notes = await getPaperNotes();
+const topics = [...new Set(notes.map((n) => n.data.topics[0] ?? 'other'))].sort();
+---
+
+<Base title="Paper notes" description="Research papers I've read, with the key idea and my take on each.">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="crumbs"><a href="/research/">Research</a> / Paper notes</div>
+      <h1>Paper notes</h1>
+      <p>Research papers I've read: the key idea, and my take on why it matters.</p>
+    </div>
+    {notes.length > 1 && topics.length > 1 && (
+      <Tabs target="#notes" attr="topic" options={[
+        { value: 'all', label: 'All', count: notes.length },
+        ...topics.map((t) => ({ value: t, label: t, count: notes.filter((n) => (n.data.topics[0] ?? 'other') === t).length })),
+      ]} />
+    )}
+    <div id="notes" style="padding-bottom:64px">
+      {notes.length ? notes.map((n) => <PaperNote note={n} />) : <p class="empty">Notes are on their way.</p>}
+    </div>
+  </div>
+</Base>

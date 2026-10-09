@@ -62,3 +62,8 @@ export async function getAllSeries() {
     .filter((s) => s.parts.length > 0)
     .sort((a, b) => a.entry.data.order - b.entry.data.order);
 }
+
+// Papers I've read, newest read first.
+export async function getPaperNotes() {
+  return (await getCollection('paperNotes')).sort((a, b) => b.data.read.valueOf() - a.data.read.valueOf());
+}

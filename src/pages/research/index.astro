@@ -1,10 +1,12 @@
 ---
-import Base from '../layouts/Base.astro';
-import Citation from '../components/Citation.astro';
-import Tabs from '../components/Tabs.astro';
-import { getResearch } from '../lib/content';
+import Base from '../../layouts/Base.astro';
+import Citation from '../../components/Citation.astro';
+import Tabs from '../../components/Tabs.astro';
+import PaperNote from '../../components/PaperNote.astro';
+import { getResearch, getPaperNotes } from '../../lib/content';
 
 const research = await getResearch();
+const notes = await getPaperNotes();
 const count = (t: string) => research.filter((r) => r.data.type === t).length;
 ---
 
@@ -23,6 +25,12 @@ const count = (t: string) => research.filter((r) => r.data.type === t).length;
     <div id="papers">
       {research.map((r) => <div data-type={r.data.type}><Citation paper={r} full /></div>)}
     </div>
+    {notes.length > 0 && (
+      <section style="padding-top:48px">
+        <div class="label">Paper notes · papers I've read <a href="/research/notes/">{notes.length === 1 ? "1 note" : `All ${notes.length} notes`} →</a></div>
+        {notes.slice(0, 5).map((n) => <PaperNote note={n} />)}
+      </section>
+    )}
     {research.some((r) => r.data.bibtex) && (
       <div style="padding:40px 0 64px">
         <div class="year">Cite this work</div>
@@ -38,6 +46,6 @@ const count = (t: string) => research.filter((r) => r.data.type === t).length;
 </Base>
 
 <script>
-  import { addCopyButtons } from '../lib/copy';
+  import { addCopyButtons } from '../../lib/copy';
   addCopyButtons();
 </script>

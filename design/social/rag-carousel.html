@@ -1,0 +1,213 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: Newsreader; src: url(../../node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2) format('woff2'); font-weight: 200 800; }
+  @font-face { font-family: Newsreader; src: url(../../node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-italic.woff2) format('woff2'); font-weight: 200 800; font-style: italic; }
+  @font-face { font-family: Inter; src: url(../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2) format('woff2'); font-weight: 100 900; }
+  @font-face { font-family: JBM; src: url(../../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2) format('woff2'); font-weight: 100 800; }
+  @page { size: 1080px 1350px; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: #0e0f11; }
+  body { color: #ededeb; font-family: Inter, sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body.one .slide:not(.show) { display: none; }
+
+  .slide { width: 1080px; height: 1350px; padding: 84px; display: flex; flex-direction: column; position: relative; overflow: hidden; background: #0e0f11; page-break-after: always; break-after: page; }
+  .slide::before { content: ""; position: absolute; inset: 0; background: radial-gradient(900px 600px at 90% -10%, rgba(96,165,250,.11), transparent 60%); pointer-events: none; }
+  .slide > * { position: relative; }
+
+  .top, .foot { display: flex; justify-content: space-between; align-items: center; font-family: JBM; }
+  .top { font-size: 20px; color: #9a9a96; letter-spacing: .14em; text-transform: uppercase; }
+  .center { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 20px 0; }
+  .center > h1:first-child, .center > h2:first-child, .center > img:first-child { margin-top: 0 !important; }
+  .foot { font-size: 22px; color: #9a9a96; }
+  .logo { font-weight: 800; color: #ededeb; letter-spacing: 0; text-transform: none; font-size: 24px; }
+  .br { color: #e07a57; font-weight: 700; }
+  .swipe { color: #60a5fa; }
+
+  .num { font-family: JBM; font-size: 22px; color: #60a5fa; margin-top: 72px; letter-spacing: .1em; }
+  h1 { font-family: Newsreader; font-weight: 500; font-size: 92px; line-height: 1.04; letter-spacing: -.02em; margin-top: 18px; }
+  h2 { font-family: Newsreader; font-weight: 500; font-size: 78px; line-height: 1.08; letter-spacing: -.015em; margin-top: 18px; }
+  h1 em, h2 em { font-style: italic; color: #60a5fa; }
+  .lede { font-size: 34px; line-height: 1.5; color: #cfcfcc; margin-top: 34px; max-width: 880px; }
+  .lede b { color: #ededeb; font-weight: 600; }
+
+  .win { margin-top: 48px; background: #0d1117; border: 1px solid #262a31; border-radius: 18px; overflow: hidden; box-shadow: 0 30px 60px -20px rgba(0,0,0,.6); }
+  .bar { height: 56px; background: #171b22; border-bottom: 1px solid #262a31; display: flex; align-items: center; gap: 12px; padding: 0 22px; }
+  .dot { width: 16px; height: 16px; border-radius: 50%; }
+  .r { background: #ff5f57; } .y { background: #febc2e; } .g { background: #28c840; }
+  .t { margin-left: 14px; font-family: JBM; font-size: 19px; color: #8b949e; }
+  pre { font-family: JBM; font-size: 27px; line-height: 1.65; color: #e6edf3; padding: 28px 32px; white-space: pre-wrap; }
+  .c { color: #8b949e; } .s { color: #a5d6ff; } .bad { color: #ff7b72; } .ok { color: #3fb950; } .mid { color: #e3b341; } .f { color: #d2a8ff; } .n { color: #79c0ff; }
+
+  table { width: 100%; border-collapse: collapse; font-family: JBM; font-size: 28px; }
+  th { text-align: left; font-weight: 500; color: #8b949e; font-size: 18px; letter-spacing: .1em; text-transform: uppercase; padding: 24px 30px 12px; }
+  td { padding: 18px 30px; border-top: 1px solid #1f242c; color: #e6edf3; }
+  tr.best td { background: rgba(63,185,80,.07); }
+
+  .quote { font-family: Newsreader; font-style: italic; font-size: 44px; line-height: 1.25; margin-top: 52px; padding-left: 30px; border-left: 4px solid #60a5fa; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 48px; }
+  .box { border: 1px solid #2c3036; border-radius: 16px; padding: 30px; background: #14161a; }
+  .box .k { font-family: JBM; font-size: 18px; letter-spacing: .12em; text-transform: uppercase; }
+  .box h3 { font-family: Newsreader; font-weight: 500; font-size: 40px; margin: 14px 0 12px; line-height: 1.15; }
+  .box p { font-size: 27px; line-height: 1.45; color: #cfcfcc; }
+  .list { margin-top: 44px; display: flex; flex-direction: column; gap: 18px; }
+  .item { display: grid; grid-template-columns: 64px 1fr; gap: 18px; align-items: start; border: 1px solid #2c3036; background: #14161a; border-radius: 16px; padding: 24px 28px; }
+  .item .i { font-family: JBM; font-size: 26px; color: #60a5fa; }
+  .item b { font-family: Newsreader; font-weight: 500; font-size: 34px; display: block; color: #ededeb; }
+  .item span { font-size: 25px; color: #cfcfcc; line-height: 1.4; }
+
+  .cta-face { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 2px solid #262a31; }
+  .url { font-family: JBM; font-size: 30px; color: #ededeb; border: 1px solid #2c3036; background: #14161a; border-radius: 14px; padding: 22px 26px; margin-top: 36px; display: inline-block; }
+  .parts { margin-top: 36px; font-family: JBM; font-size: 25px; color: #cfcfcc; line-height: 1.9; }
+  .parts span { color: #8b949e; display: inline-block; width: 150px; }
+</style>
+</head>
+<body>
+
+<!-- 1 · Cover -->
+<section class="slide">
+  <div class="top"><span class="logo"><span class="br">[</span>YES<span class="br">]</span> Prasad</span><span>RAG from Scratch</span></div>
+  <div class="center">
+  <h1>I ran RAG on an <em>8GB laptop.</em></h1>
+  <p class="lede">No GPU. No LangChain.<br>One model took <b>40–60 minutes</b> to answer a single question.</p>
+  <p class="lede" style="margin-top:56px">6 lessons no tutorial taught me →</p>
+  </div>
+  <div class="foot"><span>1 / 8</span><span class="swipe">Swipe →</span></div>
+</section>
+
+<!-- 2 · Chunking -->
+<section class="slide">
+  <div class="top"><span class="logo"><span class="br">[</span>YES<span class="br">]</span> Prasad</span><span>Lesson 1</span></div>
+  <div class="center">
+  <h2>Chunking is a <em>semantic</em> decision, not a technical one.</h2>
+  <div class="win">
+    <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="t">policy_document.txt</span></div>
+<pre><span class="c">── FIXED-SIZE (512 tokens)</span>
+<span class="s">"…reimbursement up to $500 provided the"</span>
+<span class="bad">✗ missing: who qualifies</span>
+<span class="s">"expense was pre-approved by a manager…"</span>
+<span class="bad">✗ missing: the amount</span>
+
+<span class="c">── PARAGRAPH-BASED</span>
+<span class="s">"…up to $500 provided the expense was
+ pre-approved by a line manager…"</span>
+<span class="ok">✓ one complete idea</span></pre>
+  </div>
+  </div>
+  <div class="foot"><span>2 / 8</span><span class="swipe">→</span></div>
+</section>
+
+<!-- 3 · Overlap -->
+<section class="slide">
+  <div class="top"><span class="logo"><span class="br">[</span>YES<span class="br">]</span> Prasad</span><span>Lesson 2</span></div>
+  <div class="center">
+  <h2>Overlap is for the <em>LLM</em>. Not for retrieval.</h2>
+  <p class="lede">It barely changes similarity scores. What it does is stop chunk 7 from starting cold.</p>
+  <div class="two">
+    <div class="box"><div class="k bad">Without overlap</div><h3>Chunk 7 starts cold</h3><p>The LLM misses the condition set in paragraph 6. The answer is incomplete — or invented.</p></div>
+    <div class="box"><div class="k ok">With 2-sentence overlap</div><h3>Chunk 7 has context</h3><p>The last 2 lines of paragraph 6 lead into chunk 7. The answer stays grounded.</p></div>
+  </div>
+  </div>
+  <div class="foot"><span>3 / 8</span><span class="swipe">→</span></div>
+</section>
+
+<!-- 4 · Benchmarks -->
+<section class="slide">
+  <div class="top"><span class="logo"><span class="br">[</span>YES<span class="br">]</span> Prasad</span><span>Lesson 3</span></div>
+  <div class="center">
+  <h2>Small models don't fail loudly. They fail <em>confidently.</em></h2>
+  <div class="win">
+    <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="t">benchmark — top-K=5 · CPU only · 8GB</span></div>
+    <table>
+      <tr><th>Model</th><th>Tok/min</th><th>Failure mode</th></tr>
+      <tr><td>DeepSeek 4b</td><td class="n">3–5</td><td class="bad">Fact blending ✗</td></tr>
+      <tr><td>Qwen 1.5b</td><td class="n">7–9</td><td class="mid">Truncation △</td></tr>
+      <tr class="best"><td>Qwen 7b</td><td class="n">11–12</td><td class="ok">None observed ✓</td></tr>
+    </table>
+  </div>
+  <p class="lede">A number that <i>almost</i> matches the policy. The hardest hallucination to catch.</p>
+  </div>
+  <div class="foot"><span>4 / 8</span><span class="swipe">→</span></div>
+</section>
+
+<!-- 5 · Citations -->
+<section class="slide">
+  <div class="top"><span class="logo"><span class="br">[</span>YES<span class="br">]</span> Prasad</span><span>Lesson 4</span></div>
+  <div class="center">
+  <h2>Citations are your chunking strategy's <em>unit test.</em></h2>
+  <div class="win">
+    <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="t">answer — with sources</span></div>
+<pre>Answer: Employees are entitled to
+reimbursement up to $500…
+
+<span class="f">📚 Sources:</span>
+1. <span class="s">policy_handbook.txt</span>  <span class="n">lines 42–67</span>
+2. <span class="s">expense_guidelines.txt</span> <span class="n">lines 12–28</span>
+
+<span class="c"># wrong answer? open lines 42–67,
+# check the chunk boundary.</span></pre>
+  </div>
+  </div>
+  <div class="foot"><span>5 / 8</span><span class="swipe">→</span></div>
+</section>
+
+<!-- 6 · ChromaDB -->
+<section class="slide">
+  <div class="top"><span class="logo"><span class="br">[</span>YES<span class="br">]</span> Prasad</span><span>Lesson 5</span></div>
+  <div class="center">
+  <h2>ChromaDB isn't magic. It's <em>two systems</em> working as a team.</h2>
+  <div class="win">
+    <div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="t">./chroma_store — on disk</span></div>
+<pre>./chroma_store/
+├── <span class="s">chroma.sqlite3</span>      <span class="c">← ids, text, metadata</span>
+└── &lt;collection-uuid&gt;/
+    └── <span class="s">data_level0.bin</span> <span class="c">← the vectors (HNSW)</span></pre>
+  </div>
+  <p class="lede"><b>HNSW</b> does the math — finds the nearest vectors.<br><b>SQLite</b> keeps the meaning — returns their text.</p>
+  </div>
+  <div class="foot"><span>6 / 8</span><span class="swipe">→</span></div>
+</section>
+
+<!-- 7 · Agents -->
+<section class="slide">
+  <div class="top"><span class="logo"><span class="br">[</span>YES<span class="br">]</span> Prasad</span><span>Lesson 6</span></div>
+  <div class="center">
+  <h2>When does RAG need to become an <em>agent?</em></h2>
+  <div class="list">
+    <div class="item"><span class="i">01</span><div><b>Multi-step questions</b><span>One retrieval can't answer it honestly.</span></div></div>
+    <div class="item"><span class="i">02</span><div><b>Multiple sources</b><span>The answer lives across documents, APIs, databases.</span></div></div>
+    <div class="item"><span class="i">03</span><div><b>Verification required</b><span>Benefits, healthcare, compliance: check before answering.</span></div></div>
+    <div class="item"><span class="i">04</span><div><b>Follow-up questions</b><span>The next question depends on the last answer.</span></div></div>
+  </div>
+  </div>
+  <div class="foot"><span>7 / 8</span><span class="swipe">→</span></div>
+</section>
+
+<!-- 8 · CTA -->
+<section class="slide">
+  <div class="top"><span class="logo"><span class="br">[</span>YES<span class="br">]</span> Prasad</span><span>The full series</span></div>
+  <div class="center">
+  <img class="cta-face" src="../img/headshot.jpg" alt="">
+  <h2 style="margin-top:34px">RAG from <em>Scratch</em> — every failure written down.</h2>
+  <div class="parts">
+    <div><span>Prologue</span>Building RAG from scratch</div>
+    <div><span>Part 1</span>RAG without LangChain</div>
+    <div><span>Part 2</span>Chunking, hallucination, token speed</div>
+    <div><span>Part 3</span>The benchmark experiments</div>
+    <div><span>Part 4</span>From RAG to agentic RAG</div>
+    <div><span>Part 5</span>ChromaDB → S3 Vectors</div>
+  </div>
+  <div class="url">yesprasad.com/series/rag-from-scratch</div>
+  </div>
+  <div class="foot"><span>8 / 8</span><span>Follow <span style="color:#ededeb">Eshwar Prasad Yaddanapudi</span> for more</span></div>
+</section>
+
+<script>
+  // ?slide=3 renders a single slide (used to export PNG previews).
+  const n = new URLSearchParams(location.search).get('slide');
+  if (n) { document.body.classList.add('one'); document.querySelectorAll('.slide')[n - 1]?.classList.add('show'); }
+</script>
+</body>
+</html>
