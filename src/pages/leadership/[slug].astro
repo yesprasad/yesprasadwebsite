@@ -25,7 +25,7 @@ const crumb = { judging: 'Judging', speaking: 'Speaking', awards: 'Awards' }[d.c
       <h1>{d.title}</h1>
       <p>{[d.role, d.location, d.dateLabel].filter(Boolean).join(' · ')}</p>
     </div>
-    <div class="grid2" style="grid-template-columns:2fr 1fr;gap:40px;padding-bottom:32px">
+    {(entry.body?.trim() || d.facts.length > 0 || d.related) && <div class="grid2" style="grid-template-columns:2fr 1fr;gap:40px;padding-bottom:32px">
       <div class="prose"><Content /></div>
       {(d.facts.length > 0 || d.related) && (
         <dl class="facts one">
@@ -33,7 +33,7 @@ const crumb = { judging: 'Judging', speaking: 'Speaking', awards: 'Awards' }[d.c
           {d.related && <div><dt>Related</dt><dd><a class="more" href={d.related.url}>{d.related.label}</a></dd></div>}
         </dl>
       )}
-    </div>
+    </div>}
     <div class="masonry">
       {photos.map((p) => (
         <button class="photo" type="button" data-lb={p.large} data-cap={p.caption} aria-label={`Open photo: ${p.caption}`}>

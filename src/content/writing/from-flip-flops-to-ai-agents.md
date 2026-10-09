@@ -5,7 +5,7 @@ section: notes
 tags: [career, writing, engineering]
 summary: "An ECE student's blog in 2005, a first seminar on flip-flops, and the one question that has followed me from circuits to AI agents: what changes when state changes?"
 featured: true
-draft: true
+draft: false
 ---
 
 In 2005, I was an Electronics and Communication Engineering student in Hyderabad with a new Blogger account and more curiosity than I knew what to do with. I wrote about MEMS, nanotube transistors, CDMA and WiMAX: anything that looked like the future.
