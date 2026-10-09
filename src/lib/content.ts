@@ -46,3 +46,19 @@ export function readingTime(body = '') {
   const words = body.replace(/```[\s\S]*?```/g, '').split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.round(words / 220));
 }
+
+export const partLabel = (part?: number) => (part === 0 ? 'Prologue' : `Part ${part}`);
+
+// All series with their published parts in reading order.
+export async function getAllSeries() {
+  const [all, posts] = await Promise.all([getCollection('series'), getPosts()]);
+  return all
+    .map((s) => ({
+      entry: s,
+      parts: posts
+        .filter((p) => p.data.series === s.id)
+        .sort((a, b) => (a.data.part ?? 99) - (b.data.part ?? 99) || a.data.date.valueOf() - b.data.date.valueOf()),
+    }))
+    .filter((s) => s.parts.length > 0)
+    .sort((a, b) => a.entry.data.order - b.entry.data.order);
+}

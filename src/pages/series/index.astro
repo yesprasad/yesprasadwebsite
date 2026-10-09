@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getAllSeries } from '../../lib/content';
+
+const all = await getAllSeries();
+---
+
+<Base title="Series" description="Curated reading paths through my writing.">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="kicker">Series</div>
+      <h1>Series</h1>
+      <p>Curated reading paths: several articles on one subject, in the order they're best read.</p>
+    </div>
+    <div class="grid2" style="padding-bottom:64px">
+      {all.map((s) => (
+        <a class="card sys" href={`/series/${s.entry.id}/`}>
+          <div class="meta"><span class="kicker">Series · {s.parts.length} articles</span></div>
+          <h3>{s.entry.data.title}</h3>
+          <p>{s.entry.data.tagline}</p>
+          <div class="meta"><span></span><span class="more">Start reading <span class="arrow">→</span></span></div>
+        </a>
+      ))}
+    </div>
+  </div>
+</Base>

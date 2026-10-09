@@ -4,6 +4,8 @@ date: 2026-01-01
 section: essay
 tags: ["RAG","Embeddings","ChromaDB","S3 Vectors","AWS Bedrock"]
 summary: "I traced one sentence from raw text through embedding, storage and retrieval in two different systems — ChromaDB locally and S3 Vectors on AWS. What came out changed how I think about vector databases."
+series: rag-from-scratch
+part: 5
 ---
 
 I have been building RAG systems for a while now. ChromaDB locally, then AWS with Bedrock and S3 Vectors. As I was building, I asked myself: *"so where exactly does the embedding sit?"*

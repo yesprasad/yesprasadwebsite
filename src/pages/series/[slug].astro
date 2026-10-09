@@ -1,0 +1,58 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getAllSeries, partLabel, readingTime, monthYear } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const all = await getAllSeries();
+  return all.map((s) => ({ params: { slug: s.entry.id }, props: s }));
+}
+
+const { entry, parts } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+const totalMinutes = parts.reduce((sum, p) => sum + readingTime(p.body), 0);
+---
+
+<Base title={d.title} description={d.tagline}>
+  <div class="wrap">
+    <div class="page-head">
+      <div class="crumbs"><a href="/series/">Series</a> / {d.title}</div>
+      <h1>{d.title}</h1>
+      <p>{d.tagline}</p>
+      <div class="series-meta">{parts.length} articles · about {totalMinutes} min of reading</div>
+    </div>
+
+    <div class="series-intro prose"><Content /></div>
+
+    <ol class="series-list">
+      {parts.map((p) => (
+        <li>
+          <a class="series-item" href={`/writing/${p.id}/`}>
+            <span class="series-num">{p.data.part === 0 ? 'Prologue' : String(p.data.part).padStart(2, '0')}</span>
+            <span class="series-body">
+              <span class="series-title">{p.data.title}</span>
+              {p.data.summary && <span class="series-sum">{p.data.summary}</span>}
+              <span class="series-small">{partLabel(p.data.part)} · {monthYear(p.data.date)} · {readingTime(p.body)} min read</span>
+            </span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+
+    {d.links.length > 0 && (
+      <div class="btns" style="margin:8px 0 40px">
+        {d.links.map((l) => <a class="btn" href={l.url}>{l.label}</a>)}
+      </div>
+    )}
+
+    {d.next && (
+      <a class="card series-next" href={d.next.url}>
+        <span class="kicker">{d.next.label}</span>
+        <span class="series-next-text">{d.next.text}</span>
+        <span class="more">Continue <span class="arrow">→</span></span>
+      </a>
+    )}
+  </div>
+</Base>

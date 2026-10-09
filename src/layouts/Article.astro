@@ -3,15 +3,25 @@ import type { MarkdownHeading } from 'astro';
 import { Image } from 'astro:assets';
 import Base from './Base.astro';
 import YouTube from '../components/YouTube.astro';
+import SeriesBox from '../components/SeriesBox.astro';
+import type { CollectionEntry } from 'astro:content';
 import headshot from '../assets/headshot.jpg';
 import { site, sections } from '../data/site';
-import { fullDate, readingTime, slugify, type Post } from '../lib/content';
+import { fullDate, readingTime, slugify, partLabel, type Post } from '../lib/content';
 
-interface Props { post: Post; headings: MarkdownHeading[]; newer?: Post; older?: Post }
-const { post, headings, newer, older } = Astro.props;
+interface Props {
+  post: Post;
+  headings: MarkdownHeading[];
+  newer?: Post;
+  older?: Post;
+  series?: { entry: CollectionEntry<'series'>; parts: Post[] };
+}
+const { post, headings, newer, older, series } = Astro.props;
 const d = post.data;
 const isMargins = d.section === 'margins';
 const toc = headings.filter((h) => h.depth === 2);
+const si = series ? series.parts.findIndex((p) => p.id === post.id) : -1;
+const seriesNext = series && si >= 0 ? series.parts[si + 1] : undefined;
 const shelf = isMargins ? { href: '/margins/', label: 'Margins' } : { href: '/writing/', label: sections[d.section].plural };
 ---
 
@@ -33,6 +43,7 @@ const shelf = isMargins ? { href: '/margins/', label: 'Margins' } : { href: '/wr
           </span>
         </div>
       </div>
+      {series && <SeriesBox series={series.entry} parts={series.parts} current={post} />}
     </header>
 
     <div class="art-grid">
@@ -60,7 +71,14 @@ const shelf = isMargins ? { href: '/margins/', label: 'Margins' } : { href: '/wr
           <a class="more" href="/about/">About me →</a>
         </div>
       </div>
-      {(older || newer) && (
+      {series && (
+        <a class="card series-next" href={seriesNext ? `/writing/${seriesNext.id}/` : `/series/${series.entry.id}/`}>
+          <span class="kicker">{seriesNext ? `Next in ${series.entry.data.title} · ${partLabel(seriesNext.data.part)}` : `You've finished ${series.entry.data.title}`}</span>
+          <span class="series-next-text">{seriesNext ? seriesNext.data.title : 'See the whole series, the code, and what comes next.'}</span>
+          <span class="more">{seriesNext ? 'Read next' : 'Back to the series'} <span class="arrow">→</span></span>
+        </a>
+      )}
+      {!series && (older || newer) && (
         <nav class="prevnext" aria-label="More articles">
           {older && <a class="card" href={`/writing/${older.id}/`}><small>← Previous</small><div>{older.data.title}</div></a>}
           {newer && <a class="card next" href={`/writing/${newer.id}/`}><small>Next →</small><div>{newer.data.title}</div></a>}

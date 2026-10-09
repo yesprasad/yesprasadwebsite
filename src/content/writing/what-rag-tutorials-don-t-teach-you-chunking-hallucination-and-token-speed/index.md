@@ -4,6 +4,8 @@ date: 2025-09-02
 section: essay
 tags: ["RAG","LLM","Chunking","Local LLM"]
 summary: "Three problems no RAG tutorial warned me about: chunking that destroys meaning, quantized models hallucinating under load, and token speed that makes some models unusable on real hardware."
+series: rag-from-scratch
+part: 2
 ---
 
 Most RAG tutorials show you how to get an answer. Very few show you how to get a *correct* answer — and almost none explain what causes a wrong one. After building a multi-document RAG system from scratch, I ran into three problems no tutorial warned me about: chunking destroying meaning, quantized models hallucinating under load, and token speed making some models unusable on real hardware.

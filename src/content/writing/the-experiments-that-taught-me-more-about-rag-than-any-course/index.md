@@ -4,6 +4,8 @@ date: 2025-09-04
 section: lab
 tags: ["RAG","LLM","Benchmarking","Local LLM","Ollama"]
 summary: "Three local models, one CPU-only machine with 8GB RAM, and twenty policy questions. What benchmarking DeepSeek 4b, Qwen 1.5b and Qwen 7b taught me about top-K, coherence and hallucination."
+series: rag-from-scratch
+part: 3
 ---
 
 I did not set out to run a benchmarking study. I was building a RAG system for policy documents, running it locally on a CPU-only machine with 8GB RAM, and things kept failing in ways that courses and tutorials never warned me about. Each failure taught me something. This article is those lessons — in the order I learned them, the hard way.

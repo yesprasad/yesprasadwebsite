@@ -2,10 +2,11 @@
 import Base from '../../layouts/Base.astro';
 import PostRow from '../../components/PostRow.astro';
 import Tabs from '../../components/Tabs.astro';
-import { getPosts, year } from '../../lib/content';
+import { getPosts, getAllSeries, year } from '../../lib/content';
 import { site } from '../../data/site';
 
 const posts = await getPosts();
+const allSeries = await getAllSeries();
 const count = (s: string) => posts.filter((p) => p.data.section === s).length;
 const byYear = new Map<number, typeof posts>();
 for (const p of posts) {
@@ -21,6 +22,12 @@ for (const p of posts) {
       <h1>Writing</h1>
       <p>{posts.length} {posts.length === 1 ? 'article' : 'articles'} since {site.writingSince}, from Node.js fundamentals to RAG systems and AI agents.</p>
     </div>
+    {allSeries.length > 0 && (
+      <div class="series-strip">
+        <span class="kicker">Series</span>
+        {allSeries.map((s) => <a class="chip" href={`/series/${s.entry.id}/`}>{s.entry.data.title} · {s.parts.length}</a>)}
+      </div>
+    )}
     <Tabs target="#posts" attr="section" options={[
       { value: 'all', label: 'All', count: posts.length },
       { value: 'essay', label: 'Essays', count: count('essay') },

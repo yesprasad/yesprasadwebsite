@@ -4,6 +4,8 @@ date: 2025-06-06
 section: lab
 tags: ["RAG","Python","ChromaDB","Embeddings"]
 summary: "KnowledgeAI builds RAG from scratch without LangChain or LlamaIndex: paragraph chunking with overlap, MiniLM embeddings, ChromaDB storage and retrieval-based prompting, written to be read and debugged."
+series: rag-from-scratch
+part: 0
 ---
 
 ## Introduction

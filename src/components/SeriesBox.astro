@@ -1,0 +1,29 @@
+---
+// "Part 2 of 5 · RAG from Scratch" box at the top of an article, with the full list of parts.
+import type { CollectionEntry } from 'astro:content';
+import { partLabel, type Post } from '../lib/content';
+
+interface Props { series: CollectionEntry<'series'>; parts: Post[]; current: Post }
+const { series, parts, current } = Astro.props;
+const numbered = parts.filter((p) => p.data.part !== 0).length;
+const where = current.data.part === 0 ? `Prologue · ${series.data.title}` : `Part ${current.data.part} of ${numbered} · ${series.data.title}`;
+---
+
+<details class="series-box">
+  <summary>
+    <span class="kicker">Series</span>
+    <span class="series-where">{where}</span>
+    <span class="series-toggle" aria-hidden="true"></span>
+  </summary>
+  <ol>
+    {parts.map((p) => (
+      <li class:list={{ on: p.id === current.id }}>
+        <span class="series-n">{partLabel(p.data.part)}</span>
+        {p.id === current.id
+          ? <span aria-current="page">{p.data.title}</span>
+          : <a href={`/writing/${p.id}/`}>{p.data.title}</a>}
+      </li>
+    ))}
+  </ol>
+  <a class="more" href={`/series/${series.id}/`}>See the whole series →</a>
+</details>

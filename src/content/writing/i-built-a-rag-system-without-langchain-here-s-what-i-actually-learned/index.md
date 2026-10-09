@@ -4,6 +4,8 @@ date: 2025-09-01
 section: essay
 tags: ["RAG","LLM","Python","ChromaDB","Ollama"]
 summary: "Every RAG tutorial starts with pip install langchain. I built one from scratch instead — Python, Sentence-Transformers, ChromaDB and a local LLM — and learned what the abstractions hide."
+series: rag-from-scratch
+part: 1
 ---
 
 Every RAG tutorial I found started the same way: *pip install langchain.* And then the magic happened — a few method calls, a vector store, and suddenly you had a "production RAG system." Except you didn't. You had a wrapper around a wrapper around a wrapper, and when something went wrong, you had no idea where to look.

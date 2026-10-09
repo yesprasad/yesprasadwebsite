@@ -17,7 +17,21 @@ const writing = defineCollection({
       draft: z.boolean().default(false),
       cover: image().optional(),
       youtube: z.string().optional(), // YouTube video id shown at the top of the article
+      series: z.string().optional(), // id of a file in src/content/series/, e.g. "rag-from-scratch"
+      part: z.number().int().min(0).optional(), // order within the series; 0 shows as "Prologue"
     }),
+});
+
+// Series: a curated reading path through several articles. The body is the series intro.
+const series = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/series' }),
+  schema: z.object({
+    title: z.string(),
+    tagline: z.string(),
+    order: z.number().default(99),
+    links: z.array(z.object({ label: z.string(), url: z.string() })).default([]),
+    next: z.object({ label: z.string(), text: z.string(), url: z.string() }).optional(),
+  }),
 });
 
 // Flagship platforms (Fluent-Graph, deep-graph, ...).
@@ -90,4 +104,4 @@ const leadership = defineCollection({
     }),
 });
 
-export const collections = { writing, platforms, research, talks, leadership };
+export const collections = { writing, series, platforms, research, talks, leadership };

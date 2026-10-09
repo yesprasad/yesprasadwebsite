@@ -4,6 +4,8 @@ date: 2025-09-19
 section: essay
 tags: ["AI Agents","Agentic RAG","RAG","ReAct","Architecture"]
 summary: "A RAG system answers. An agent pursues a goal. Reconstructing why I added an agent layer to my wellness benefits RAG system, and when a RAG system actually needs to become an agent."
+series: rag-from-scratch
+part: 4
 ---
 
 I have a confession: I forgot why I built this.
