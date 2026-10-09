@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yesprasad.com/sitemap-index.xml
