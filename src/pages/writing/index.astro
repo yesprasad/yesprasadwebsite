@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostRow from '../../components/PostRow.astro';
+import Tabs from '../../components/Tabs.astro';
+import { getPosts, year } from '../../lib/content';
+import { site } from '../../data/site';
+
+const posts = await getPosts();
+const count = (s: string) => posts.filter((p) => p.data.section === s).length;
+const byYear = new Map<number, typeof posts>();
+for (const p of posts) {
+  const y = year(p.data.date);
+  byYear.set(y, [...(byYear.get(y) ?? []), p]);
+}
+---
+
+<Base title="Writing" description={`Articles since ${site.writingSince}, from Node.js fundamentals to RAG systems and AI agents.`}>
+  <div class="wrap">
+    <div class="page-head">
+      <div class="kicker">Writing</div>
+      <h1>Writing</h1>
+      <p>{posts.length} {posts.length === 1 ? 'article' : 'articles'} since {site.writingSince}, from Node.js fundamentals to RAG systems and AI agents.</p>
+    </div>
+    <Tabs target="#posts" attr="section" options={[
+      { value: 'all', label: 'All', count: posts.length },
+      { value: 'essay', label: 'Essays', count: count('essay') },
+      { value: 'lab', label: 'Engineering Lab', count: count('lab') },
+      { value: 'notes', label: 'Field Notes', count: count('notes') },
+    ]} />
+    <div id="posts" style="padding-bottom:64px">
+      {[...byYear].map(([y, list]) => (
+        <div data-group>
+          <div class="year">{y}</div>
+          {list.map((p) => <PostRow post={p} dateStyle="monthDay" />)}
+        </div>
+      ))}
+      {posts.length === 0 && <p class="empty">Articles are on their way.</p>}
+    </div>
+  </div>
+</Base>

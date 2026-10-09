@@ -1,0 +1,13 @@
+---
+import type { CollectionEntry } from 'astro:content';
+interface Props { platform: CollectionEntry<'platforms'> }
+const { platform: p } = Astro.props;
+---
+
+<a class="card sys" href={`/platforms/#${p.id}`}>
+  <div class="meta"><span class="kicker">Platform · {p.data.kicker.split('·')[0].trim()}</span><span>{p.data.since}</span></div>
+  <h3>{p.data.name}</h3>
+  <p>{p.data.tagline}</p>
+  {p.data.command && <code class="cmd">{p.data.command}</code>}
+  <div class="meta"><span>{p.data.stack}</span><span class="more">Details <span class="arrow">→</span></span></div>
+</a>

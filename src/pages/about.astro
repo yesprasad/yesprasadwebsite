@@ -1,0 +1,44 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Recognition from '../components/Recognition.astro';
+import Icon from '../components/Icon.astro';
+import headshot from '../assets/headshot.jpg';
+import { site } from '../data/site';
+
+const contact = [
+  site.links.cv && { label: 'Download CV (PDF)', href: site.links.cv, icon: 'cv', primary: true },
+  site.links.email && { label: 'Email', href: site.links.email, icon: 'email' },
+  site.links.linkedin && { label: 'LinkedIn', href: site.links.linkedin, icon: 'linkedin' },
+  site.links.github && { label: 'GitHub', href: site.links.github, icon: 'github' },
+  site.links.youtube && { label: 'YouTube', href: site.links.youtube, icon: 'youtube' },
+].filter(Boolean) as { label: string; href: string; icon: 'cv' | 'email' | 'linkedin' | 'github' | 'youtube'; primary?: boolean }[];
+---
+
+<Base title="About" description={`About ${site.fullName}.`}>
+  <div class="wrap">
+    <div class="page-head">
+      <div class="kicker">About</div>
+      <h1>{site.shortName}</h1>
+    </div>
+    <div class="about">
+      <div><div class="avatar"><Image src={headshot} alt={site.shortName} width={400} height={400} /></div></div>
+      <div class="prose">
+        <p>Software engineer and independent researcher. I build backend systems, AI tools and developer infrastructure, and lately the layer that makes the consequences of a change visible before it ships.</p>
+        <p>I've been writing in public since {site.writingSince}.</p>
+        <p class="muted">Why “YES”? It's my initials: <b style="color:var(--ink)">Y</b>addanapudi <b style="color:var(--ink)">E</b>shwar <b style="color:var(--ink)">S</b>owbhagya.</p>
+        <dl class="facts" style="margin:28px 0">
+          <div><dt>Focus</dt><dd>AI engineering, code intelligence</dd></div>
+          <div><dt>Building</dt><dd>Fluent-Graph, deep-graph</dd></div>
+          <div><dt>Research</dt><dd>Agent autonomy &amp; consequence</dd></div>
+          <div><dt>Previously</dt><dd>Engineering Manager, ServiceNow</dd></div>
+        </dl>
+        <div class="label" style="margin-top:36px">Recognition</div>
+        <Recognition />
+        <div class="btns" style="margin-top:32px">
+          {contact.map((c) => <a class={`btn${c.primary ? ' primary' : ''}`} href={c.href}><Icon name={c.icon} />{c.label}</a>)}
+        </div>
+      </div>
+    </div>
+  </div>
+</Base>

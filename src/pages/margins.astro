@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import PostRow from '../components/PostRow.astro';
+import { getPosts } from '../lib/content';
+
+const posts = (await getPosts({ includeMargins: true })).filter((p) => p.data.section === 'margins');
+---
+
+<Base title="Margins" description="Writing that happens beside the main work.">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="kicker">Margins</div>
+      <h1>Margins</h1>
+      <p>Writing that happens beside the main work.</p>
+    </div>
+    <div style="padding-bottom:64px">
+      {posts.length ? posts.map((p) => <PostRow post={p} />) : <p class="empty">Nothing here yet.</p>}
+    </div>
+  </div>
+</Base>

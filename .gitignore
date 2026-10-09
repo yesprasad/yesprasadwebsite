@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+.env
+
+# Local-only: preview config and the Blogger import cache
+.claude/
+scripts/import/cache/

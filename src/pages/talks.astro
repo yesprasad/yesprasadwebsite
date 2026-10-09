@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import { getTalks, day, monthShort, year } from '../lib/content';
+import { site } from '../data/site';
+
+const { upcoming, past } = await getTalks();
+const dateBox = (d: Date, label?: string) => (label ? label.split(' ') : [day(d), `${monthShort(d)} ${year(d)}`]);
+---
+
+<Base title="Talks & teaching" description="Conference talks, lightning sessions and video lessons on AI-assisted engineering and change consequence.">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="kicker">Talks</div>
+      <h1>Talks &amp; teaching</h1>
+      <p>Conference talks and lightning sessions on AI-assisted engineering and making change consequences visible.</p>
+    </div>
+
+    {upcoming.length > 0 && <div class="sublabel up" style="margin-bottom:14px">● Upcoming</div>}
+    {upcoming.map((t) => {
+      const [big, small] = dateBox(t.data.date);
+      return (
+        <div class="card tcard up">
+          <div class="date"><b>{big}</b><span>{small}</span></div>
+          <div>
+            <span class="badge" style="margin-left:0">Upcoming</span> <span class="muted" style="font-size:12.5px">{t.data.format}</span>
+            <h3>{t.data.title}</h3>
+            <p class="muted" style="font-size:14px">{t.data.event}{t.data.time && ` · ${t.data.time}`}</p>
+            {t.data.oneLiner && <p style="font-size:14.5px;margin-top:8px">{t.data.oneLiner}</p>}
+            {t.data.links.length > 0 && <div class="links" style="margin-top:12px">{t.data.links.map((l) => <a href={l.url}>{l.label} →</a>)}</div>}
+          </div>
+        </div>
+      );
+    })}
+
+    {past.length > 0 && <div class="sublabel" style="margin:36px 0 14px">Past</div>}
+    {past.map((t) => {
+      const [big, small] = dateBox(t.data.date, t.data.dateLabel);
+      return (
+        <div class="card tcard">
+          <div class="date"><b>{big}</b><span>{small}</span></div>
+          <div>
+            <span class="muted" style="font-size:12.5px">{t.data.format}</span>
+            <h3>{t.data.title}</h3>
+            <p class="muted" style="font-size:14px">{t.data.event}</p>
+            {t.data.oneLiner && <p style="font-size:14.5px;margin-top:8px">{t.data.oneLiner}</p>}
+            {t.data.links.length > 0 && <div class="links" style="margin-top:12px">{t.data.links.map((l) => <a href={l.url}>{l.label}</a>)}</div>}
+          </div>
+        </div>
+      );
+    })}
+
+    <div class="card" style="margin:40px 0 24px;background:var(--surface)">
+      <h3 style="font-size:17px">Video lessons since 2016</h3>
+      <p class="muted" style="font-size:14px;margin:6px 0 14px">Node.js, testing, functional programming, TypeScript, NestJS and developer environments.</p>
+      <a class="btn" href={site.links.youtube}>Watch on YouTube →</a>
+    </div>
+    <div class="card" style="margin-bottom:64px;background:var(--surface)">
+      <h3 style="font-size:17px">Invite me to speak</h3>
+      <p class="muted" style="font-size:14px;margin:6px 0 14px">Topics: AI coding agents and verification, code intelligence, ServiceNow Fluent, RAG in production.</p>
+      <a class="btn" href="/about/">Contact →</a>
+    </div>
+  </div>
+</Base>

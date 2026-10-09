@@ -1,0 +1,13 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { monthShort, day, year } from '../lib/content';
+interface Props { talk: CollectionEntry<'talks'> }
+const { talk } = Astro.props;
+const t = talk.data;
+const when = t.dateLabel ? t.dateLabel.split(' ') : [`${monthShort(t.date)} ${day(t.date)}`, String(year(t.date))];
+---
+
+<div class="talk">
+  <div class="when">{when[0]}<br />{when[1]}</div>
+  <div><h4>{t.title}</h4><div class="ev">{t.event} · {t.format}</div></div>
+</div>

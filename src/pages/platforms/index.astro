@@ -1,0 +1,35 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getPlatforms } from '../../lib/content';
+
+const platforms = await getPlatforms();
+const rendered = await Promise.all(platforms.map(async (p) => ({ p, Content: (await render(p)).Content })));
+---
+
+<Base title="Flagship platforms" description="Platforms that make the consequences of change visible, for engineers and for AI agents.">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="kicker">Platforms</div>
+      <h1>Flagship platforms</h1>
+      <p>Tools that make the consequences of change visible, for engineers and for the agents that now write code alongside them.</p>
+    </div>
+    {rendered.map(({ p, Content }) => (
+      <div class="sysrow" id={p.id}>
+        <div>
+          <div class="kicker">{p.data.kicker}</div>
+          <h2>{p.data.name}</h2>
+          <div class="prose"><Content /></div>
+          {p.data.features.length > 0 && <p class="muted" style="font-size:14px">{p.data.features.join(' · ')}</p>}
+          <div class="btns" style="margin-top:18px">
+            {p.data.caseStudy && <a class="btn primary" href={`/writing/${p.data.caseStudy}/`}>Read the case study</a>}
+            {p.data.links.map((l, i) => <a class={`btn${!p.data.caseStudy && i === 0 ? ' primary' : ''}`} href={l.url}>{l.label}</a>)}
+          </div>
+        </div>
+        <dl class="facts">
+          {p.data.facts.map((f) => <div><dt>{f.label}</dt><dd>{f.value}</dd></div>)}
+        </dl>
+      </div>
+    ))}
+  </div>
+</Base>

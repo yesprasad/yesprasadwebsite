@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import Citation from '../components/Citation.astro';
+import Tabs from '../components/Tabs.astro';
+import { getResearch } from '../lib/content';
+
+const research = await getResearch();
+const count = (t: string) => research.filter((r) => r.data.type === t).length;
+---
+
+<Base title="Research & publications" description="Position papers and technical reports on agent autonomy, change consequence and pre-action verification.">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="kicker">Research</div>
+      <h1>Research &amp; publications</h1>
+      <p>Position papers and technical reports on agent autonomy, change consequence and pre-action verification.</p>
+    </div>
+    <Tabs target="#papers" attr="type" options={[
+      { value: 'all', label: 'All', count: research.length },
+      { value: 'paper', label: 'Papers', count: count('paper') },
+      { value: 'report', label: 'Reports', count: count('report') },
+    ]} />
+    <div id="papers">
+      {research.map((r) => <div data-type={r.data.type}><Citation paper={r} full /></div>)}
+    </div>
+    {research.some((r) => r.data.bibtex) && (
+      <div style="padding:40px 0 64px">
+        <div class="year">Cite this work</div>
+        {research.filter((r) => r.data.bibtex).map((r) => (
+          <figure class="code-window" id={`cite-${r.id}`}>
+            <div class="code-bar"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span><span class="code-title">citation.bib</span></div>
+            <pre class="astro-code" style="color:#e6edf3"><code>{r.data.bibtex!.trim()}</code></pre>
+          </figure>
+        ))}
+      </div>
+    )}
+  </div>
+</Base>
+
+<script>
+  import { addCopyButtons } from '../lib/copy';
+  addCopyButtons();
+</script>

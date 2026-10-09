@@ -1,0 +1,63 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getLeadership } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const items = await getLeadership();
+  return items.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+const photos = await Promise.all(
+  d.photos.map(async (p) => ({ ...p, large: (await getImage({ src: p.src, width: 1800 })).src })),
+);
+const crumb = { judging: 'Judging', speaking: 'Speaking', awards: 'Awards' }[d.category];
+---
+
+<Base title={d.title} description={`${d.role} · ${d.dateLabel}`}>
+  <div class="wrap">
+    <div class="page-head" style="padding-bottom:28px">
+      <div class="crumbs"><a href="/leadership/">Industry leadership</a> / {crumb}</div>
+      <h1>{d.title}</h1>
+      <p>{[d.role, d.location, d.dateLabel].filter(Boolean).join(' · ')}</p>
+    </div>
+    <div class="grid2" style="grid-template-columns:2fr 1fr;gap:40px;padding-bottom:32px">
+      <div class="prose"><Content /></div>
+      {(d.facts.length > 0 || d.related) && (
+        <dl class="facts one">
+          {d.facts.map((f) => <div><dt>{f.label}</dt><dd>{f.value}</dd></div>)}
+          {d.related && <div><dt>Related</dt><dd><a class="more" href={d.related.url}>{d.related.label}</a></dd></div>}
+        </dl>
+      )}
+    </div>
+    <div class="masonry">
+      {photos.map((p) => (
+        <button class="photo" type="button" data-lb={p.large} data-cap={p.caption} aria-label={`Open photo: ${p.caption}`}>
+          <Image src={p.src} alt={p.caption} width={800} />
+          <div class="cap">{p.caption}</div>
+        </button>
+      ))}
+    </div>
+  </div>
+  <div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="Photo"><div><img alt="" /><p></p></div></div>
+</Base>
+
+<script>
+  const lb = document.getElementById('lb')!;
+  const img = lb.querySelector('img')!;
+  const cap = lb.querySelector('p')!;
+  document.querySelectorAll<HTMLButtonElement>('[data-lb]').forEach((b) => {
+    b.addEventListener('click', () => {
+      img.src = b.dataset.lb!;
+      img.alt = b.dataset.cap ?? '';
+      cap.textContent = b.dataset.cap ?? '';
+      lb.classList.add('on');
+    });
+  });
+  lb.addEventListener('click', () => lb.classList.remove('on'));
+  addEventListener('keydown', (e) => { if (e.key === 'Escape') lb.classList.remove('on'); });
+</script>

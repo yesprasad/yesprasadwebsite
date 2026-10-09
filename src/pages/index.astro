@@ -1,0 +1,99 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+import Icon from '../components/Icon.astro';
+import PlatformCard from '../components/PlatformCard.astro';
+import Citation from '../components/Citation.astro';
+import TalkRow from '../components/TalkRow.astro';
+import Recognition from '../components/Recognition.astro';
+import PostRow from '../components/PostRow.astro';
+import headshot from '../assets/headshot.jpg';
+import { site } from '../data/site';
+import { getPosts, getPlatforms, getResearch, getTalks, getLeadership } from '../lib/content';
+
+const [posts, platforms, research, talks, leadership] = await Promise.all([
+  getPosts(), getPlatforms(), getResearch(), getTalks(), getLeadership(),
+]);
+const highlights = leadership.filter((l) => l.data.featured).slice(0, 3);
+const talkCount = talks.all.length;
+---
+
+<Base hideLogoOnHero>
+  <div class="wrap">
+    <section class="hero">
+      <div>
+        <h1><Logo /></h1>
+        <div class="fullname">{site.fullName}</div>
+        <p class="thesis">
+          I build the <strong>structural intelligence layer</strong> that AI-driven software is missing, so every change an engineer or an agent makes comes with its <strong>consequences visible before it ships</strong>.
+        </p>
+        <div class="chips">{site.focus.map((f) => <span class="chip">{f}</span>)}</div>
+        <div class="btns">
+          <a class="btn primary" href={site.links.cv || '/about/'}><Icon name={site.links.cv ? 'cv' : 'user'} />{site.links.cv ? 'Download CV' : 'About me'}</a>
+          {site.links.github && <a class="btn" href={site.links.github}><Icon name="github" />GitHub</a>}
+          {site.links.linkedin && <a class="btn" href={site.links.linkedin}><Icon name="linkedin" />LinkedIn</a>}
+          <a class="btn" href="/rss.xml"><Icon name="rss" />RSS</a>
+        </div>
+      </div>
+      <div class="portrait"><Image src={headshot} alt={site.shortName} width={480} height={480} loading="eager" /></div>
+    </section>
+
+    {platforms.length > 0 && (
+      <section class="block">
+        <div class="label">Flagship platforms <a href="/platforms/">All platforms →</a></div>
+        <div class="grid2">{platforms.slice(0, 2).map((p) => <PlatformCard platform={p} />)}</div>
+      </section>
+    )}
+
+    {research.length > 0 && (
+      <section class="block">
+        <div class="label">Research &amp; publications <a href="/research/">All research →</a></div>
+        {research.slice(0, 3).map((r) => <Citation paper={r} />)}
+      </section>
+    )}
+
+    <section class="block">
+      <div class="split">
+        <div>
+          <div class="label">Talks <a href="/talks/">All talks →</a></div>
+          {talks.upcoming.length > 0 && <div class="sublabel up">● Upcoming</div>}
+          {talks.upcoming.slice(0, 2).map((t) => <TalkRow talk={t} />)}
+          {talks.past.length > 0 && <div class="sublabel" style="margin-top:14px">Past</div>}
+          {talks.past.slice(0, 2).map((t) => <TalkRow talk={t} />)}
+        </div>
+        <div>
+          <div class="label">Recognition</div>
+          <Recognition limit={4} />
+        </div>
+      </div>
+    </section>
+
+    {highlights.length > 0 && (
+      <section class="block">
+        <div class="label">Industry leadership <a href="/leadership/">Judging, speaking &amp; awards →</a></div>
+        <div class="photos">
+          {highlights.map((h) => h.data.photos[0] && (
+            <a class="photo" href={`/leadership/${h.id}/`}>
+              <Image src={h.data.photos[0].src} alt={h.data.photos[0].caption} width={900} />
+              <div class="cap"><span class="role">{h.data.role}</span><b>{h.data.title}</b>{h.data.dateLabel}</div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section class="block">
+      <div class="label">Latest writing <a href="/writing/">All {posts.length} articles →</a></div>
+      {posts.length ? posts.slice(0, 5).map((p) => <PostRow post={p} />) : <p class="empty">Articles are on their way.</p>}
+    </section>
+
+    <div class="stats">
+      <span>Writing since <b>{site.writingSince}</b></span>
+      <span><b>{posts.length}</b> articles</span>
+      <span><b>{platforms.length}</b> platforms</span>
+      <span><b>{research.length}</b> {research.length === 1 ? 'paper' : 'papers'}</span>
+      <span><b>{talkCount}</b> talks</span>
+    </div>
+  </div>
+</Base>

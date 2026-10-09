@@ -1,0 +1,10 @@
+---
+import { recognition } from '../data/recognition';
+interface Props { limit?: number }
+const { limit } = Astro.props;
+const items = limit ? recognition.slice(0, limit) : recognition;
+---
+
+{items.map((r) => (
+  <div class="rec"><div class="ic" aria-hidden="true">{r.icon}</div><div><h4>{r.title}</h4><p>{r.detail}</p></div></div>
+))}

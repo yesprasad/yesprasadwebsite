@@ -1,0 +1,89 @@
+---
+import type { MarkdownHeading } from 'astro';
+import { Image } from 'astro:assets';
+import Base from './Base.astro';
+import YouTube from '../components/YouTube.astro';
+import headshot from '../assets/headshot.jpg';
+import { site, sections } from '../data/site';
+import { fullDate, readingTime, slugify, type Post } from '../lib/content';
+
+interface Props { post: Post; headings: MarkdownHeading[]; newer?: Post; older?: Post }
+const { post, headings, newer, older } = Astro.props;
+const d = post.data;
+const isMargins = d.section === 'margins';
+const toc = headings.filter((h) => h.depth === 2);
+const shelf = isMargins ? { href: '/margins/', label: 'Margins' } : { href: '/writing/', label: sections[d.section].plural };
+---
+
+<Base title={d.title} description={d.summary} type="article">
+  <div class="progress" id="progress"></div>
+  <div class="wrap">
+    <header class="art-head">
+      <div class="crumbs"><a href={isMargins ? '/margins/' : '/writing/'}>{isMargins ? 'Margins' : 'Writing'}</a>{!isMargins && <> / <a href={shelf.href}>{shelf.label}</a></>}</div>
+      <h1>{d.title}</h1>
+      {d.summary && <p class="dek">{d.summary}</p>}
+      <div class="byline">
+        <Image src={headshot} alt="" width={80} height={80} />
+        <div>
+          <b>{site.shortName}</b>
+          <span class="muted">
+            <time datetime={d.date.toISOString()}>{fullDate(d.date)}</time>
+            {!isMargins && <> · {readingTime(post.body)} min read · {sections[d.section].plural}</>}
+            {d.draft && <> · <span style="color:var(--gold)">DRAFT (hidden in production)</span></>}
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <div class="art-grid">
+      <article class:list={['art-body', { poem: isMargins }]} id="art">
+        {d.youtube && <YouTube id={d.youtube} title={d.title} />}
+        <slot />
+      </article>
+      {toc.length >= 3 && !isMargins && (
+        <aside class="toc" aria-label="On this page">
+          <div class="toc-inner">
+            <div class="sublabel">On this page</div>
+            {toc.map((h) => <a href={`#${h.slug}`} data-t={h.slug}>{h.text}</a>)}
+          </div>
+        </aside>
+      )}
+    </div>
+
+    <footer class="art-foot">
+      {d.tags.length > 0 && <div class="chips">{d.tags.map((t) => <a class="chip" href={`/tags/${slugify(t)}/`}>{t}</a>)}</div>}
+      <div class="author-box">
+        <Image src={headshot} alt="" width={104} height={104} />
+        <div>
+          <h4>{site.brand}</h4>
+          <p>Builds the structural intelligence layer for AI-driven software. Creator of Fluent-Graph and deep-graph.</p>
+          <a class="more" href="/about/">About me →</a>
+        </div>
+      </div>
+      {(older || newer) && (
+        <nav class="prevnext" aria-label="More articles">
+          {older && <a class="card" href={`/writing/${older.id}/`}><small>← Previous</small><div>{older.data.title}</div></a>}
+          {newer && <a class="card next" href={`/writing/${newer.id}/`}><small>Next →</small><div>{newer.data.title}</div></a>}
+        </nav>
+      )}
+    </footer>
+  </div>
+</Base>
+
+<script>
+  import { addCopyButtons } from '../lib/copy';
+  addCopyButtons();
+
+  const bar = document.getElementById('progress');
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.toc-inner a')];
+  const targets = links.map((a) => document.getElementById(a.dataset.t!)).filter(Boolean) as HTMLElement[];
+  const onScroll = () => {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    if (bar) bar.style.width = `${h > 0 ? (scrollY / h) * 100 : 0}%`;
+    let current = targets[0]?.id;
+    for (const t of targets) if (t.getBoundingClientRect().top < 120) current = t.id;
+    links.forEach((a) => a.classList.toggle('on', a.dataset.t === current));
+  };
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>

@@ -1,0 +1,26 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+
+const year = new Date().getFullYear();
+const pages = [
+  site.links.cv && { label: 'CV', href: site.links.cv },
+  { label: 'Margins', href: '/margins/' },
+].filter(Boolean) as { label: string; href: string }[];
+const profiles = [
+  site.links.github && { label: 'GitHub', href: site.links.github, icon: 'github' },
+  site.links.linkedin && { label: 'LinkedIn', href: site.links.linkedin, icon: 'linkedin' },
+  site.links.youtube && { label: 'YouTube', href: site.links.youtube, icon: 'youtube' },
+  { label: 'RSS feed', href: '/rss.xml', icon: 'rss' },
+].filter(Boolean) as { label: string; href: string; icon: 'github' | 'linkedin' | 'youtube' | 'rss' }[];
+---
+
+<footer class="site">
+  <div class="wrap">
+    <span>© {year} {site.shortName}</span>
+    <nav aria-label="Footer">
+      {pages.map((l) => <a href={l.href}>{l.label}</a>)}
+      {profiles.map((l) => <a class="icon-link" href={l.href} aria-label={l.label} title={l.label}><Icon name={l.icon} size={17} /></a>)}
+    </nav>
+  </div>
+</footer>

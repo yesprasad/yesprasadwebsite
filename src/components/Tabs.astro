@@ -1,0 +1,31 @@
+---
+// Filter buttons. Items to filter carry data-<attr>="value"; "all" shows everything.
+interface Props { target: string; attr: string; options: { value: string; label: string; count: number }[] }
+const { target, attr, options } = Astro.props;
+---
+
+<div class="tabs" role="group" aria-label="Filter" data-target={target} data-attr={attr}>
+  {options.map((o, i) => (
+    <button class="tab" type="button" data-value={o.value} aria-pressed={i === 0 ? 'true' : 'false'}>{o.label} <small>{o.count}</small></button>
+  ))}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.tabs[data-target]').forEach((group) => {
+    const container = document.querySelector(group.dataset.target!);
+    const attr = group.dataset.attr!;
+    group.querySelectorAll<HTMLButtonElement>('.tab').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        group.querySelectorAll('.tab').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        const v = btn.dataset.value;
+        container?.querySelectorAll<HTMLElement>(`[data-${attr}]`).forEach((el) => {
+          el.hidden = v !== 'all' && el.dataset[attr] !== v;
+        });
+        // Hide year headings with no visible posts under them.
+        container?.querySelectorAll<HTMLElement>('[data-group]').forEach((g) => {
+          g.hidden = !g.querySelector(`[data-${attr}]:not([hidden])`);
+        });
+      });
+    });
+  });
+</script>

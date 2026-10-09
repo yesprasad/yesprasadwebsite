@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Tabs from '../../components/Tabs.astro';
+import { getLeadership } from '../../lib/content';
+
+const items = await getLeadership();
+const count = (c: string) => items.filter((i) => i.data.category === c).length;
+---
+
+<Base title="Industry leadership" description="Judging panels, conference sessions and recognised contributions to the field.">
+  <div class="wrap">
+    <div class="page-head">
+      <div class="kicker">Industry leadership</div>
+      <h1>Industry leadership</h1>
+      <p>Invited to evaluate the work of others, to speak, and to lead: judging panels, conference sessions and recognised contributions to the field.</p>
+    </div>
+    <Tabs target="#albums" attr="category" options={[
+      { value: 'all', label: 'All', count: items.length },
+      { value: 'judging', label: 'Judging', count: count('judging') },
+      { value: 'speaking', label: 'Speaking', count: count('speaking') },
+      { value: 'awards', label: 'Awards', count: count('awards') },
+    ]} />
+    <div class="albums" id="albums">
+      {items.map((a) => (
+        <a class="album" href={`/leadership/${a.id}/`} data-category={a.data.category}>
+          <div class="photo">
+            {a.data.photos[0] && <Image src={a.data.photos[0].src} alt={a.data.photos[0].caption} width={600} />}
+            <div class="cap"><span class="role">{a.data.role}</span></div>
+          </div>
+          <h3>{a.data.title}</h3>
+          <p>{[a.data.location, a.data.dateLabel, `${a.data.photos.length} photo${a.data.photos.length === 1 ? '' : 's'}`].filter(Boolean).join(' · ')}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</Base>

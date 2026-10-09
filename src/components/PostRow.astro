@@ -1,0 +1,15 @@
+---
+import type { Post } from '../lib/content';
+import { sections } from '../data/site';
+import { monthYear, monthDay } from '../lib/content';
+
+interface Props { post: Post; dateStyle?: 'monthYear' | 'monthDay' }
+const { post, dateStyle = 'monthYear' } = Astro.props;
+const d = post.data.date;
+---
+
+<a class="post" href={`/writing/${post.id}/`} data-section={post.data.section}>
+  <span class="d">{dateStyle === 'monthDay' ? monthDay(d) : monthYear(d)}</span>
+  <span class="t">{post.data.title}{post.data.draft && <span class="draft">DRAFT</span>}</span>
+  <span class="s">{sections[post.data.section].label}</span>
+</a>

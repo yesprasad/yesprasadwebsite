@@ -1,0 +1,23 @@
+---
+// Click-to-load YouTube embed: no YouTube requests or cookies until the reader presses play.
+interface Props { id: string; title: string }
+const { id, title } = Astro.props;
+---
+
+<button class="yt" type="button" data-yt={id} aria-label={`Play video: ${title}`}>
+  <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" />
+  <span class="play"><span><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"></path></svg></span></span>
+</button>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('button.yt').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const f = document.createElement('iframe');
+      f.src = `https://www.youtube-nocookie.com/embed/${btn.dataset.yt}?autoplay=1`;
+      f.allow = 'autoplay; encrypted-media; picture-in-picture';
+      f.allowFullscreen = true;
+      f.title = btn.getAttribute('aria-label') ?? 'YouTube video';
+      btn.replaceChildren(f);
+    }, { once: true });
+  });
+</script>

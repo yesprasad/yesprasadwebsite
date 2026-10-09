@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { year, monthYear } from '../lib/content';
+interface Props { paper: CollectionEntry<'research'>; full?: boolean }
+const { paper, full = false } = Astro.props;
+const p = paper.data;
+---
+
+<div class="cite">
+  <div class="yr">{year(p.date)}</div>
+  <div>
+    <h3>{p.title} <span class="badge">{p.label}</span></h3>
+    <div class="sub">{full ? p.authors.join(', ') : p.shortAuthors} · {p.venue} · {monthYear(p.date)}</div>
+    {full && paper.body && <p class="abstract">{paper.body.trim()}</p>}
+    <div class="links">
+      {p.pdf && <a href={p.pdf}>PDF</a>}
+      {p.doi && <a href={`https://doi.org/${p.doi}`}>DOI {p.doi}</a>}
+      {p.url && <a href={p.url}>{p.venue}</a>}
+      {p.bibtex && <a href={`/research/#cite-${paper.id}`}>Cite</a>}
+    </div>
+  </div>
+</div>
