@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 620" width="1440" height="620" role="img" aria-label="What LangGraph's compile() verifies and what it does not check">
+<title>What LangGraph's compile() verifies and what it does not check</title>
+<defs>
+  <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="context-stroke"/></marker>
+  <marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3fb950"/></marker>
+  <marker id="arrM" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8b949e"/></marker>
+  <marker id="arrF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3a4049"/></marker>
+  <marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#f85149"/></marker>
+  <marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#58a6ff"/></marker>
+</defs>
+<rect width="1440" height="620" rx="18" fill="#0d1117"/>
+<rect x="40" y="40" width="660" height="540" rx="14" fill="#11161d" stroke="#262a31"/>
+<path d="M40 54 a14 14 0 0 1 14 -14 h632 a14 14 0 0 1 14 14 v56 h-660 z" fill="#0f2318" stroke="#1f5f33"/>
+<circle cx="86" cy="75" r="19" fill="#0f2318" stroke="#3fb950" stroke-opacity=".5"/><path d="M78 75 L84 81 L95 69" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="120" y="85" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="30" font-weight="700" fill="#3fb950" text-anchor="start" >compile() verifies</text>
+<rect x="68" y="140" width="604" height="112" rx="10" fill="#0f2318" fill-opacity=".55" stroke="#1f5f33" stroke-opacity=".7"/>
+<circle cx="122" cy="196" r="20" fill="#0f2318" stroke="#3fb950" stroke-opacity=".5"/><path d="M114 196 L120 202 L131 190" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="164" y="188" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="28" font-weight="600" fill="#e6edf3" text-anchor="start" >Edge sources exist</text>
+<text x="164" y="224" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" font-weight="400" fill="#8b949e" text-anchor="start" >Each edge starts at a real node</text>
+<rect x="68" y="280" width="604" height="112" rx="10" fill="#0f2318" fill-opacity=".55" stroke="#1f5f33" stroke-opacity=".7"/>
+<circle cx="122" cy="336" r="20" fill="#0f2318" stroke="#3fb950" stroke-opacity=".5"/><path d="M114 336 L120 342 L131 330" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="164" y="328" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="28" font-weight="600" fill="#e6edf3" text-anchor="start" >START has an entry node</text>
+<text x="164" y="364" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" font-weight="400" fill="#8b949e" text-anchor="start" >START connects to at least one node</text>
+<rect x="68" y="420" width="604" height="112" rx="10" fill="#0f2318" fill-opacity=".55" stroke="#1f5f33" stroke-opacity=".7"/>
+<circle cx="122" cy="476" r="20" fill="#0f2318" stroke="#3fb950" stroke-opacity=".5"/><path d="M114 476 L120 482 L131 470" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="164" y="468" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="28" font-weight="600" fill="#e6edf3" text-anchor="start" >Edge targets exist</text>
+<text x="164" y="504" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" font-weight="400" fill="#8b949e" text-anchor="start" >Each edge ends at a real node or at END</text>
+<rect x="740" y="40" width="660" height="540" rx="14" fill="#11161d" stroke="#262a31"/>
+<path d="M740 54 a14 14 0 0 1 14 -14 h632 a14 14 0 0 1 14 14 v56 h-660 z" fill="#2a1215" stroke="#6e2a2a"/>
+<circle cx="786" cy="75" r="19" fill="#2a1215" stroke="#f85149" stroke-opacity=".5"/><path d="M779.16 68.16 L792.84 81.84 M792.84 68.16 L779.16 81.84" stroke="#f85149" stroke-width="3" stroke-linecap="round"/>
+<text x="820" y="85" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="30" font-weight="700" fill="#f85149" text-anchor="start" >compile() does not check</text>
+<rect x="768" y="140" width="604" height="112" rx="10" fill="#2a1215" fill-opacity=".55" stroke="#6e2a2a" stroke-opacity=".7"/>
+<circle cx="822" cy="196" r="20" fill="#2a1215" stroke="#f85149" stroke-opacity=".5"/><path d="M814.8 188.8 L829.2 203.2 M829.2 188.8 L814.8 203.2" stroke="#f85149" stroke-width="3" stroke-linecap="round"/>
+<text x="864" y="188" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="28" font-weight="600" fill="#e6edf3" text-anchor="start" >Every node is reachable</text>
+<text x="864" y="224" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" font-weight="400" fill="#8b949e" text-anchor="start" >Orphan nodes compile silently</text>
+<rect x="768" y="280" width="604" height="112" rx="10" fill="#2a1215" fill-opacity=".55" stroke="#6e2a2a" stroke-opacity=".7"/>
+<circle cx="822" cy="336" r="20" fill="#2a1215" stroke="#f85149" stroke-opacity=".5"/><path d="M814.8 328.8 L829.2 343.2 M829.2 328.8 L814.8 343.2" stroke="#f85149" stroke-width="3" stroke-linecap="round"/>
+<text x="864" y="328" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="28" font-weight="600" fill="#e6edf3" text-anchor="start" >Every node leads to END</text>
+<text x="864" y="364" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" font-weight="400" fill="#8b949e" text-anchor="start" >Dead-end nodes compile silently</text>
+<rect x="768" y="420" width="604" height="112" rx="10" fill="#2a1215" fill-opacity=".55" stroke="#6e2a2a" stroke-opacity=".7"/>
+<circle cx="822" cy="476" r="20" fill="#2a1215" stroke="#f85149" stroke-opacity=".5"/><path d="M814.8 468.8 L829.2 483.2 M829.2 468.8 L814.8 483.2" stroke="#f85149" stroke-width="3" stroke-linecap="round"/>
+<text x="864" y="468" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="28" font-weight="600" fill="#e6edf3" text-anchor="start" >Every node runs</text>
+<text x="864" y="504" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" font-weight="400" fill="#8b949e" text-anchor="start" >Skipped nodes raise no warning</text>
+</svg>

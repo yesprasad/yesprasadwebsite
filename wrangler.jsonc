@@ -3,7 +3,7 @@
 // auto-configure the project with `astro add cloudflare` on every deploy.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "yesprasad", // must match the Worker name in the Cloudflare dashboard
+  "name": "yesprasadwebsite", // must match the Worker name in the Cloudflare dashboard
   "compatibility_date": "2026-10-01",
   "assets": {
     "directory": "./dist",

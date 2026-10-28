@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 950" width="1440" height="950" role="img" aria-label="A healthy LangGraph pipeline compared with the same graph after one edge is removed">
+<title>A healthy LangGraph pipeline compared with the same graph after one edge is removed</title>
+<defs>
+  <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="context-stroke"/></marker>
+  <marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3fb950"/></marker>
+  <marker id="arrM" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8b949e"/></marker>
+  <marker id="arrF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3a4049"/></marker>
+  <marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#f85149"/></marker>
+  <marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#58a6ff"/></marker>
+</defs>
+<rect width="1440" height="950" rx="18" fill="#0d1117"/>
+<rect x="40" y="40" width="660" height="870" rx="14" fill="#11161d" stroke="#1f5f33"/>
+<text x="370" y="94" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="24" font-weight="700" fill="#3fb950" text-anchor="middle" letter-spacing="2">HEALTHY GRAPH</text>
+<rect x="260" y="130" width="220" height="60" rx="30" fill="#0f2318" stroke="#3fb950" stroke-width="2" /><text x="370" y="169" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="22" font-weight="700" fill="#3fb950" text-anchor="middle" >START</text>
+<line x1="370" y1="190" x2="370" y2="228" stroke="#3fb950" stroke-width="2.5" marker-end="url(#arrG)" />
+<rect x="90.0" y="230" width="560" height="70" rx="10" fill="#161b22" stroke="#262a31" stroke-width="1.5" /><text x="370" y="273" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="21" font-weight="500" fill="#e6edf3" text-anchor="middle" >load_purchase_request</text>
+<line x1="370" y1="300" x2="370" y2="338" stroke="#3fb950" stroke-width="2.5" marker-end="url(#arrG)" />
+<rect x="90.0" y="340" width="560" height="70" rx="10" fill="#161b22" stroke="#262a31" stroke-width="1.5" /><text x="370" y="383" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="21" font-weight="500" fill="#e6edf3" text-anchor="middle" >validate_purchase_request_is_approved</text>
+<line x1="370" y1="410" x2="370" y2="448" stroke="#3fb950" stroke-width="2.5" marker-end="url(#arrG)" />
+<rect x="90.0" y="450" width="560" height="70" rx="10" fill="#161b22" stroke="#262a31" stroke-width="1.5" /><text x="370" y="493" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="21" font-weight="500" fill="#e6edf3" text-anchor="middle" >create_purchase_order_from_request</text>
+<line x1="370" y1="520" x2="370" y2="558" stroke="#3fb950" stroke-width="2.5" marker-end="url(#arrG)" />
+<rect x="90.0" y="560" width="560" height="70" rx="10" fill="#161b22" stroke="#262a31" stroke-width="1.5" /><text x="370" y="603" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="21" font-weight="500" fill="#e6edf3" text-anchor="middle" >create_an_invoice</text>
+<line x1="370" y1="630" x2="370" y2="668" stroke="#3fb950" stroke-width="2.5" marker-end="url(#arrG)" />
+<rect x="260" y="670" width="220" height="60" rx="30" fill="#0f2318" stroke="#3fb950" stroke-width="2" /><text x="370" y="709" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="22" font-weight="700" fill="#3fb950" text-anchor="middle" >END</text>
+<rect x="200" y="780" width="340" height="58" rx="29" fill="#0f2318" stroke="#3fb950"/>
+<circle cx="232" cy="809" r="7" fill="#3fb950"/>
+<text x="382" y="816" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="21" font-weight="500" fill="#3fb950" text-anchor="middle" >status: "completed"</text>
+<text x="370" y="876" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" font-weight="400" fill="#8b949e" text-anchor="middle" >4 nodes executed</text>
+<rect x="740" y="40" width="660" height="870" rx="14" fill="#11161d" stroke="#6e2a2a"/>
+<text x="1070" y="94" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="24" font-weight="700" fill="#f85149" text-anchor="middle" letter-spacing="2">ONE EDGE REMOVED</text>
+<rect x="960" y="130" width="220" height="60" rx="30" fill="#161b22" stroke="#8b949e" stroke-width="2" /><text x="1070" y="169" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="22" font-weight="700" fill="#e6edf3" text-anchor="middle" >START</text>
+<line x1="1070" y1="190" x2="1070" y2="228" stroke="#8b949e" stroke-width="2.5" marker-end="url(#arrM)" />
+<rect x="790.0" y="230" width="560" height="70" rx="10" fill="#161b22" stroke="#262a31" stroke-width="1.5" /><text x="1070" y="273" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="21" font-weight="500" fill="#e6edf3" text-anchor="middle" >load_purchase_request</text>
+<line x1="1070" y1="300" x2="1070" y2="338" stroke="#8b949e" stroke-width="2.5" marker-end="url(#arrM)" />
+<rect x="790.0" y="340" width="560" height="70" rx="10" fill="#161b22" stroke="#262a31" stroke-width="1.5" /><text x="1070" y="383" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="21" font-weight="500" fill="#e6edf3" text-anchor="middle" >validate_purchase_request_is_approved</text>
+<line x1="1070" y1="410" x2="1070" y2="448" stroke="#8b949e" stroke-width="2.5" marker-end="url(#arrM)" />
+<rect x="790.0" y="450" width="560" height="70" rx="10" fill="#2a1215" stroke="#f85149" stroke-width="2" stroke-dasharray="8 6"/><text x="1070" y="493" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="21" font-weight="500" fill="#e6edf3" text-anchor="middle" >create_purchase_order_from_request</text>
+<rect x="1241.2" y="432" width="120.8" height="32" rx="6" fill="#2a1215" stroke="#f85149"/><text x="1301.6" y="454" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="16" font-weight="700" fill="#f85149" text-anchor="middle" letter-spacing="1">DEAD END</text>
+<rect x="790.0" y="560" width="560" height="70" rx="10" fill="#0d1117" stroke="#a371f7" stroke-width="1.5" stroke-dasharray="8 6"/><text x="1070" y="603" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="21" font-weight="500" fill="#6e6a80" text-anchor="middle" >create_an_invoice</text>
+<rect x="1264.4" y="542" width="97.6" height="32" rx="6" fill="#1e1630" stroke="#a371f7"/><text x="1313.2" y="564" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="16" font-weight="700" fill="#a371f7" text-anchor="middle" letter-spacing="1">ORPHAN</text>
+<line x1="1070" y1="524" x2="1070" y2="556" stroke="#f85149" stroke-opacity=".35" stroke-width="2" stroke-dasharray="4 6"/>
+<circle cx="1070" cy="540.0" r="16" fill="#2a1215" stroke="#f85149" stroke-opacity=".5"/><path d="M1064.24 534.24 L1075.76 545.76 M1075.76 534.24 L1064.24 545.76" stroke="#f85149" stroke-width="3" stroke-linecap="round"/>
+<text x="1100" y="547.0" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" font-weight="500" fill="#f85149" text-anchor="start" >edge removed</text>
+<line x1="1070" y1="630" x2="1070" y2="668" stroke="#3a4049" stroke-width="2.5" marker-end="url(#arrF)" />
+<rect x="960" y="670" width="220" height="60" rx="30" fill="#0d1117" stroke="#3a4049" stroke-width="2" /><text x="1070" y="709" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="22" font-weight="700" fill="#5a606a" text-anchor="middle" >END</text>
+<rect x="810" y="780" width="520" height="58" rx="29" fill="#2a1215" stroke="#f85149"/>
+<circle cx="842" cy="809" r="7" fill="#f85149"/>
+<text x="1084" y="816" font-family="'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="21" font-weight="500" fill="#f85149" text-anchor="middle" >status: "purchase_order_created"</text>
+<text x="1070" y="876" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" font-weight="400" fill="#8b949e" text-anchor="middle" >3 nodes executed · no exception · normal return</text>
+</svg>
